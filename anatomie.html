@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>HUMANIA - Anatomie</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:#071426;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+
+header{
+  padding:25px 18px;
+  background:linear-gradient(130deg,#102b50,#087d91);
+}
+
+header h1{font-size:27px}
+header p{margin-top:8px;color:#d6edff;font-size:14px}
+
+main{padding:18px}
+
+.intro,.section{
+  background:#10243d;
+  border:1px solid #254768;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:18px;
+}
+
+h2{color:#55d9d1;margin-bottom:12px}
+p{line-height:1.6;color:#c6d9eb;font-size:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+button{
+  background:#163653;
+  color:white;
+  border:1px solid #315475;
+  border-radius:13px;
+  padding:17px 10px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+button:active{background:#087d91}
+
+#result{
+  background:#0c1c30;
+  border:1px solid #254768;
+  padding:18px;
+  border-radius:15px;
+  margin-top:15px;
+  line-height:1.7;
+  color:#d6edff;
+  font-size:14px;
+  min-height:70px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  color:#9fb6ca;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🧬 HUMANIA</h1>
+<p>Explorer et comprendre le corps humain</p>
+</header>
+
+<main>
+
+<div class="intro">
+<h2>Bienvenue dans l'anatomie humaine</h2>
+<p>
+Découvre les organes, les os, les muscles et
+les différents systèmes qui permettent au
+corps humain de fonctionner.
+</p>
+</div>
+
+<div class="section">
+<h2>❤️ Les principaux organes</h2>
+
+<div class="grid">
+<button onclick="show('cerveau')">🧠 Cerveau</button>
+<button onclick="show('coeur')">❤️ Cœur</button>
+<button onclick="show('poumons')">🫁 Poumons</button>
+<button onclick="show('estomac')">🍽️ Estomac</button>
+<button onclick="show('foie')">🟤 Foie</button>
+<button onclick="show('reins')">🫘 Reins</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🦴 Les systèmes du corps</h2>
+
+<div class="grid">
+<button onclick="show('nerveux')">🧠 Système nerveux</button>
+<button onclick="show('circulatoire')">❤️ Circulatoire</button>
+<button onclick="show('respiratoire')">🫁 Respiratoire</button>
+<button onclick="show('digestif')">🍽️ Digestif</button>
+<button onclick="show('musculaire')">💪 Musculaire</button>
+<button onclick="show('squelettique')">🦴 Squelettique</button>
+</div>
+</div>
+
+<div class="section">
+<h2>📚 Espace de découverte</h2>
+<p>Clique sur un organe ou un système pour découvrir son rôle.</p>
+
+<div id="result">
+Bienvenue dans HUMANIA ! Sélectionne un élément ci-dessus.
+</div>
+</div>
+
+</main>
+
+<footer>
+HUMANIA © 2026 — Apprendre pour comprendre.
+</footer>
+
+<script>
+const data={
+cerveau:"Le cerveau contrôle de nombreuses fonctions du corps. Il intervient dans la mémoire, les émotions, les mouvements et la réflexion.",
+
+coeur:"Le cœur est un muscle qui pompe le sang et assure sa circulation dans l'organisme.",
+
+poumons:"Les poumons permettent les échanges gazeux : l'oxygène entre dans le sang et le dioxyde de carbone est éliminé.",
+
+estomac:"L'estomac participe à la digestion en mélangeant les aliments avec les sucs gastriques.",
+
+foie:"Le foie participe à la digestion, transforme certaines substances et stocke des réserves énergétiques.",
+
+reins:"Les reins filtrent le sang et participent à la production de l'urine.",
+
+nerveux:"Le système nerveux comprend le cerveau, la moelle épinière et les nerfs. Il transmet les informations dans le corps.",
+
+circulatoire:"Le système circulatoire transporte le sang, l'oxygène et les nutriments grâce au cœur et aux vaisseaux sanguins.",
+
+respiratoire:"Le système respiratoire permet de respirer et d'assurer les échanges d'oxygène et de dioxyde de carbone.",
+
+digestif:"Le système digestif transforme les aliments en nutriments utilisables par l'organisme.",
+
+musculaire:"Le système musculaire permet les mouvements, la posture et contribue à la production de chaleur.",
+
+squelettique:"Le système squelettique soutient le corps, protège certains organes et participe aux mouvements."
+};
+
+function show(key){
+document.getElementById("result").textContent=data[key];
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,638 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOXIA | Métiers et professions</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f4f6fa;color:#17243a}
+header{background:#102747;color:white;padding:25px 18px}
+.container{max-width:1150px;margin:auto}
+.logo{font-size:25px;font-weight:bold;letter-spacing:2px}
+header h1{font-size:27px;margin:22px 0 8px}
+header p{color:#d4e1f1;line-height:1.6}
+nav{background:white;padding:13px 15px;display:flex;gap:20px;overflow-x:auto;border-bottom:1px solid #e2e8f0}
+nav a{color:#174b7c;text-decoration:none;font-weight:bold;white-space:nowrap}
+main{max-width:1150px;margin:auto;padding:22px 15px 50px}
+.intro{background:white;padding:22px;border-radius:14px;border:1px solid #e3e9f1}
+.intro h2{margin-bottom:9px}
+.intro p{color:#65748a;line-height:1.6}
+.search{width:100%;padding:15px;margin-top:18px;border:1px solid #ccd6e3;border-radius:9px;font-size:16px}
+.section-title{font-size:21px;margin:27px 0 15px}
+.categories{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.category{background:white;border:1px solid #dce4ef;border-radius:11px;padding:15px;text-align:left;cursor:pointer;color:#183654}
+.category strong{display:block;margin-top:7px}
+.category span{font-size:25px}
+.category.active{background:#e8f1ff;border:2px solid #1769d2;color:#1255a8}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:25px 0 14px}
+.topline h2{font-size:21px}
+#compteur{color:#68778b;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:white;border:1px solid #e1e8f0;border-radius:13px;padding:18px;display:flex;flex-direction:column;min-height:190px}
+.card .emoji{font-size:28px;margin-bottom:10px}
+.card h3{font-size:17px;margin-bottom:8px}
+.card p{font-size:14px;color:#65748a;line-height:1.5;flex:1}
+.tag{display:inline-block;background:#edf3fa;color:#315579;padding:5px 8px;border-radius:20px;font-size:11px;margin-top:12px;width:max-content}
+.open{border:0;background:#1769d2;color:white;padding:11px 14px;border-radius:8px;font-weight:bold;margin-top:13px;cursor:pointer}
+.open:hover{background:#0d4fa8}
+.empty{background:white;padding:25px;border-radius:12px;color:#68778b;text-align:center;grid-column:1/-1}
+footer{background:#102747;color:#d5e1f0;text-align:center;padding:25px;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:#07182dcc;z-index:10;overflow-y:auto;padding:20px}
+.modal-box{background:white;max-width:750px;margin:25px auto;border-radius:16px;overflow:hidden}
+.modal-head{background:#102747;color:white;padding:22px}
+.modal-head small{color:#cbd9eb}
+.modal-head h2{margin-top:8px;font-size:24px}
+.modal-body{padding:22px}
+.modal-body h3{margin:19px 0 7px;color:#174b7c;font-size:16px}
+.modal-body p,.modal-body li{color:#526176;line-height:1.65;font-size:14px}
+.modal-body ul{padding-left:20px}
+.close{float:right;border:0;background:#ffffff20;color:white;padding:8px 12px;border-radius:7px;cursor:pointer}
+.note{background:#edf4fc;border-left:4px solid #1769d2;padding:13px;margin-top:18px;font-size:13px;color:#405773;line-height:1.5}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<div class="logo">VOXIA</div>
+<h1>Découvrir les métiers et les professions</h1>
+<p>Explorez les fonctions, les professions, les formations et les responsabilités dans la société.</p>
+</div>
+</header>
+
+<nav>
+<a href="index.html">Accueil</a>
+<a href="espaces.html">Découvrir les espaces</a>
+<a href="debats.html">Débats</a>
+<a href="publications.html">Publications</a>
+<a href="petitions.html">Pétitions</a>
+</nav>
+
+<main>
+<section class="intro">
+<h2>Bienvenue dans les espaces VOXIA</h2>
+<p>Découvrez les professions, comprenez les responsabilités de chaque acteur et apprenez les parcours nécessaires pour exercer différents métiers.</p>
+<input class="search" id="recherche" type="search" placeholder="Rechercher : avocat, député, journaliste, magistrat..." oninput="afficher()">
+</section>
+
+<h2 class="section-title">Explorer les six espaces</h2>
+
+<div class="categories">
+<button class="category active" onclick="choisir('tous',this)">
+<span>🌐</span><strong>Tous les espaces</strong>
+</button>
+<button class="category" onclick="choisir('Politique',this)">
+<span>🏛️</span><strong>Politique</strong>
+</button>
+<button class="category" onclick="choisir('Droit',this)">
+<span>⚖️</span><strong>Droit</strong>
+</button>
+<button class="category" onclick="choisir('Avocats',this)">
+<span>👨‍⚖️</span><strong>Avocats</strong>
+</button>
+<button class="category" onclick="choisir('Débats',this)">
+<span>💬</span><strong>Débats</strong>
+</button>
+<button class="category" onclick="choisir('Expression',this)">
+<span>🗣️</span><strong>Expression</strong>
+</button>
+<button class="category" onclick="choisir('Pétitions',this)">
+<span>✍️</span><strong>Pétitions</strong>
+</button>
+</div>
+
+<div class="topline">
+<h2 id="titreListe">Toutes les professions et fonctions</h2>
+<span id="compteur"></span>
+</div>
+
+<div class="grid" id="resultats"></div>
+</main>
+
+<div class="modal" id="fenetre" onclick="fermerFond(event)">
+<div class="modal-box">
+<div class="modal-head">
+<button class="close" onclick="fermer()">Fermer ✕</button>
+<small id="detailCategorie"></small>
+<h2 id="detailTitre"></h2>
+</div>
+<div class="modal-body">
+<h3>Définition</h3>
+<p id="detailDefinition"></p>
+
+<h3>Missions et responsabilités</h3>
+<ul id="detailMissions"></ul>
+
+<h3>Études et accès à la profession</h3>
+<p id="detailFormation"></p>
+
+<h3>Compétences importantes</h3>
+<ul id="detailCompetences"></ul>
+
+<h3>Débouchés et environnement professionnel</h3>
+<p id="detailDebouches"></p>
+
+<div class="note" id="detailNote"></div>
+</div>
+</div>
+</div>
+
+<footer>
+<strong>VOXIA</strong>
+<p>Comprendre les métiers, les institutions et la citoyenneté.</p>
+<p>Plateforme éducative et informative.</p>
+</footer>
+
+<script>
+
+const donnees = [
+{
+categorie:"politique", nom:"Président de la République",
+definition:"Le Président est le chef de l'État et incarne les institutions de la République.",
+missions:"Diriger l'État, nommer le Premier ministre selon les règles constitutionnelles, veiller au respect de la Constitution et représenter le pays.",
+etudes:"Il n'existe pas de diplôme unique obligatoire pour exercer cette fonction. L'accès dépend des conditions constitutionnelles et de l'élection.",
+competences:"Leadership, vision politique, diplomatie, prise de décision et connaissance des institutions.",
+debouches:"Fonction élective nationale.",
+},
+{
+categorie:"politique", nom:"Ministre",
+definition:"Un ministre dirige un département du gouvernement.",
+missions:"Appliquer la politique gouvernementale, diriger son ministère, préparer des projets et gérer les services concernés.",
+etudes:"Formation supérieure utile dans le domaine concerné : droit, économie, santé, éducation ou administration.",
+competences:"Management, organisation, communication et connaissance des politiques publiques.",
+debouches:"Responsabilités gouvernementales et administratives.",
+},
+{
+categorie:"politique", nom:"Député",
+definition:"Un député est un représentant élu qui siège à l'Assemblée nationale.",
+missions:"Voter les lois, contrôler l'action du gouvernement et représenter les citoyens.",
+etudes:"La fonction repose sur l'élection et les conditions prévues par la loi.",
+competences:"Expression orale, analyse, négociation et connaissance des institutions.",
+debouches:"Mandat parlementaire et responsabilités publiques.",
+},
+{
+categorie:"politique", nom:"Maire",
+definition:"Le maire dirige l'administration d'une commune.",
+missions:"Gérer les services municipaux, participer au développement local et mettre en œuvre les décisions du conseil municipal.",
+etudes:"La fonction est élective. Des connaissances en administration et en gestion sont utiles.",
+competences:"Gestion, proximité avec les habitants, organisation et leadership.",
+debouches:"Administration municipale et responsabilités locales.",
+},
+{
+categorie:"politique", nom:"Diplomate",
+definition:"Le diplomate représente son pays dans les relations internationales.",
+missions:"Négocier, entretenir les relations entre États, défendre les intérêts nationaux et suivre les dossiers internationaux.",
+etudes:"Études en relations internationales, droit, sciences politiques ou langues.",
+competences:"Langues, négociation, discrétion et connaissance des cultures.",
+debouches:"Ministère des Affaires étrangères, ambassades et organisations internationales.",
+},
+{
+categorie:"politique", nom:"Conseiller politique",
+definition:"Le conseiller politique accompagne un responsable ou une institution dans ses décisions.",
+missions:"Analyser les situations, préparer des notes, conseiller sur les stratégies et suivre les dossiers.",
+etudes:"Sciences politiques, droit, économie, communication ou administration.",
+competences:"Analyse, rédaction, stratégie et connaissance de la vie publique.",
+debouches:"Institutions, cabinets politiques et organisations publiques.",
+},
+{
+categorie:"droit", nom:"Juriste",
+definition:"Le juriste est un spécialiste du droit qui conseille les personnes ou les organisations.",
+missions:"Étudier les textes juridiques, rédiger des contrats et prévenir les risques juridiques.",
+etudes:"Licence puis master en droit, selon le poste visé.",
+competences:"Rigueur, analyse, rédaction et recherche juridique.",
+debouches:"Entreprises, banques, administrations et cabinets.",
+},
+{
+categorie:"droit", nom:"Notaire",
+definition:"Le notaire est un officier public qui reçoit et authentifie certains actes juridiques.",
+missions:"Rédiger et authentifier des actes, conseiller les clients et accompagner les transactions.",
+etudes:"Formation juridique et parcours professionnel exigés par la réglementation.",
+competences:"Précision, impartialité, organisation et connaissance du droit.",
+debouches:"Étude notariale et profession réglementée.",
+},
+{
+categorie:"droit", nom:"Magistrat",
+definition:"Le magistrat exerce des fonctions judiciaires au sein de la justice.",
+missions:"Selon sa fonction, juger les affaires ou représenter le ministère public.",
+etudes:"Études de droit puis formation et concours ou procédure d'accès prévus par les règles nationales.",
+competences:"Impartialité, analyse, écoute et maîtrise du droit.",
+debouches:"Tribunaux et institutions judiciaires.",
+},
+{
+categorie:"droit", nom:"Greffier",
+definition:"Le greffier assure le suivi administratif et juridique des procédures judiciaires.",
+missions:"Préparer les dossiers, assister les audiences, conserver les actes et établir les documents officiels.",
+etudes:"Formation et concours ou recrutement selon les règles nationales.",
+competences:"Organisation, précision, rédaction et discrétion.",
+debouches:"Tribunaux et services judiciaires.",
+},
+{
+categorie:"droit", nom:"Inspecteur du travail",
+definition:"L'inspecteur du travail veille au respect de la législation du travail.",
+missions:"Contrôler les conditions de travail, informer les employeurs et salariés et intervenir dans le cadre de ses compétences.",
+etudes:"Formation supérieure adaptée, notamment en droit ou en administration, puis accès selon les procédures nationales.",
+competences:"Dialogue, observation, droit social et rédaction de rapports.",
+debouches:"Administration du travail et organismes publics.",
+},
+{
+categorie:"droit", nom:"Commissaire de justice",
+definition:"Professionnel chargé de missions juridiques telles que la signification d'actes et l'exécution de décisions, selon le droit applicable.",
+missions:"Signifier des actes, établir certains constats et accomplir les missions autorisées par la loi.",
+etudes:"Formation juridique et conditions d'accès prévues par la réglementation nationale.",
+competences:"Rigueur, impartialité, organisation et communication.",
+debouches:"Profession réglementée et activités judiciaires.",
+},
+{
+categorie:"avocats", nom:"Avocat pénaliste",
+definition:"L'avocat pénaliste intervient dans les affaires liées aux infractions et à la justice pénale.",
+missions:"Conseiller et défendre les personnes concernées par une procédure pénale.",
+etudes:"Études de droit puis formation et admission au barreau selon les règles nationales.",
+competences:"Argumentation, analyse, éloquence et maîtrise du droit pénal.",
+debouches:"Cabinet d'avocat et défense pénale.",
+},
+{
+categorie:"avocats", nom:"Avocat d'affaires",
+definition:"L'avocat d'affaires accompagne les entreprises dans leurs activités juridiques.",
+missions:"Conseiller les sociétés, rédiger des contrats et accompagner les opérations commerciales.",
+etudes:"Études de droit, spécialisation en droit des affaires et accès à la profession.",
+competences:"Négociation, droit commercial, analyse et rédaction.",
+debouches:"Cabinets, entreprises et conseil juridique.",
+},
+{
+categorie:"avocats", nom:"Avocat en droit de la famille",
+definition:"Il intervient dans les affaires juridiques liées à la famille.",
+missions:"Conseiller et assister les personnes dans les procédures familiales.",
+etudes:"Études de droit et accès à la profession d'avocat.",
+competences:"Écoute, médiation, discrétion et maîtrise du droit de la famille.",
+debouches:"Cabinet d'avocat et accompagnement juridique.",
+},
+{
+categorie:"avocats", nom:"Avocat en droit du travail",
+definition:"Il accompagne les salariés et les employeurs dans les questions liées au travail.",
+missions:"Conseiller, rédiger des actes et représenter les clients dans les litiges professionnels.",
+etudes:"Études de droit et spécialisation en droit social.",
+competences:"Négociation, analyse et connaissance du droit du travail.",
+debouches:"Cabinets, entreprises et conseil.",
+},
+{
+categorie:"avocats", nom:"Avocat en droit immobilier",
+definition:"Il accompagne les opérations et litiges concernant les biens immobiliers.",
+missions:"Conseiller lors des transactions, étudier les contrats et traiter les conflits immobiliers.",
+etudes:"Études de droit et accès au barreau.",
+competences:"Droit immobilier, négociation et précision.",
+debouches:"Cabinets, promoteurs et entreprises immobilières.",
+},
+{
+categorie:"avocats", nom:"Avocat en droit international",
+definition:"Il traite des questions juridiques qui impliquent plusieurs pays ou des règles internationales.",
+missions:"Conseiller sur les accords, les litiges internationaux et les relations juridiques transfrontalières.",
+etudes:"Études de droit avec spécialisation en droit international.",
+competences:"Langues, recherche, négociation et analyse.",
+debouches:"Cabinets, organisations et entreprises internationales.",
+},
+
+{
+categorie:"debats", nom:"Économiste",
+definition:"L'économiste étudie la production, la consommation, les marchés et le fonctionnement de l'économie.",
+missions:"Analyser les données économiques, réaliser des études et proposer des recommandations.",
+etudes:"Études en économie, statistiques ou finance.",
+competences:"Analyse, mathématiques, statistiques et rédaction.",
+debouches:"Banques, administrations, entreprises et organismes de recherche.",
+},
+{
+categorie:"debats", nom:"Sociologue",
+definition:"Le sociologue étudie les comportements humains et le fonctionnement de la société.",
+missions:"Réaliser des enquêtes, analyser les phénomènes sociaux et publier des études.",
+etudes:"Études en sociologie ou sciences sociales.",
+competences:"Observation, écoute, enquête et analyse.",
+debouches:"Universités, ONG, instituts d'études et organismes publics.",
+},
+{
+categorie:"debats", nom:"Chercheur",
+definition:"Le chercheur produit de nouvelles connaissances dans un domaine.",
+missions:"Mener des recherches, analyser des résultats et publier des travaux scientifiques.",
+etudes:"Formation supérieure spécialisée, souvent jusqu'au doctorat.",
+competences:"Curiosité, méthode scientifique, patience et esprit critique.",
+debouches:"Universités, laboratoires et centres de recherche.",
+},
+{
+categorie:"debats", nom:"Enseignant",
+definition:"L'enseignant transmet des connaissances et accompagne les apprentissages.",
+missions:"Préparer les cours, expliquer les notions, évaluer les élèves et suivre leurs progrès.",
+etudes:"Formation adaptée au niveau d'enseignement et aux règles nationales.",
+competences:"Pédagogie, communication, patience et organisation.",
+debouches:"Établissements scolaires, centres de formation et enseignement supérieur.",
+},
+{
+categorie:"debats", nom:"Journaliste",
+definition:"Le journaliste collecte, vérifie et présente des informations au public.",
+missions:"Enquêter, interviewer, vérifier les sources et produire des reportages.",
+etudes:"Formation en journalisme, communication ou domaine spécialisé.",
+competences:"Rédaction, curiosité, vérification et respect de l'éthique.",
+debouches:"Presse écrite, radio, télévision et médias numériques.",
+},
+{
+categorie:"expression", nom:"Écrivain",
+definition:"L'écrivain crée des œuvres littéraires ou des textes destinés aux lecteurs.",
+missions:"Imaginer, rechercher, rédiger et retravailler des textes.",
+etudes:"Aucun diplôme unique obligatoire, mais les études littéraires peuvent aider.",
+competences:"Créativité, maîtrise de la langue et discipline.",
+debouches:"Édition, littérature, presse et écriture indépendante.",
+},
+{
+categorie:"expression", nom:"Communicateur",
+definition:"Le communicateur conçoit et diffuse des messages pour informer un public.",
+missions:"Préparer des campagnes, organiser la communication et adapter les messages.",
+etudes:"Communication, marketing, journalisme ou relations publiques.",
+competences:"Expression, créativité, stratégie et organisation.",
+debouches:"Entreprises, institutions, agences et associations.",
+},
+{
+categorie:"expression", nom:"Porte-parole",
+definition:"Le porte-parole exprime publiquement la position d'une organisation ou d'une personnalité.",
+missions:"Présenter des déclarations, répondre aux questions et transmettre des informations officielles.",
+etudes:"Communication, journalisme, droit ou sciences politiques.",
+competences:"Éloquence, maîtrise des sujets, calme et précision.",
+debouches:"Institutions, entreprises, associations et organisations.",
+},
+{
+categorie:"expression", nom:"Créateur de contenu",
+definition:"Le créateur de contenu produit des publications destinées à un public sur les plateformes numériques.",
+missions:"Concevoir des vidéos, textes ou images, organiser les publications et échanger avec la communauté.",
+etudes:"Aucun diplôme unique obligatoire. Des formations en communication et audiovisuel sont utiles.",
+competences:"Créativité, expression, montage et esprit critique.",
+debouches:"Médias numériques, communication et activité indépendante.",
+},
+{
+categorie:"expression", nom:"Éditeur",
+definition:"L'éditeur accompagne la préparation et la publication des ouvrages ou contenus.",
+missions:"Sélectionner des textes, organiser leur correction et préparer leur publication.",
+etudes:"Lettres, édition, communication ou métiers du livre.",
+competences:"Lecture, organisation, rédaction et attention aux détails.",
+debouches:"Maisons d'édition, presse et édition numérique.",
+},
+{
+categorie:"petitions", nom:"Responsable d'association",
+definition:"Il coordonne les activités d'une association et veille à son fonctionnement.",
+missions:"Organiser les réunions, gérer les projets, mobiliser les membres et suivre les objectifs.",
+etudes:"Aucun diplôme unique obligatoire. Gestion et administration sont utiles.",
+competences:"Leadership, organisation, communication et responsabilité.",
+debouches:"Associations, organisations communautaires et ONG.",
+},
+{
+categorie:"petitions", nom:"Chef de projet ONG",
+definition:"Il prépare et coordonne des projets destinés à répondre à des besoins sociaux ou humanitaires.",
+missions:"Planifier les activités, gérer les ressources, suivre les résultats et rédiger des rapports.",
+etudes:"Gestion de projet, développement, économie ou sciences sociales.",
+competences:"Planification, travail en équipe, analyse et gestion.",
+debouches:"ONG, associations et organisations internationales.",
+},
+{
+categorie:"petitions", nom:"Mobilisateur communautaire",
+definition:"Il encourage la participation des habitants aux initiatives collectives.",
+missions:"Informer les communautés, organiser des rencontres et faciliter la participation citoyenne.",
+etudes:"Formation en développement local, animation sociale ou communication.",
+competences:"Écoute, dialogue, organisation et connaissance du terrain.",
+debouches:"ONG, collectivités et projets communautaires.",
+},
+{
+categorie:"petitions", nom:"Défenseur des droits humains",
+definition:"Il contribue à la promotion et à la protection des droits fondamentaux.",
+missions:"Informer sur les droits, documenter les difficultés et soutenir les initiatives de protection.",
+etudes:"Droit, sciences sociales ou relations internationales.",
+competences:"Éthique, écoute, analyse et connaissance des droits humains.",
+debouches:"ONG, associations et organismes spécialisés.",
+},
+{
+categorie:"petitions", nom:"Médiateur",
+definition:"Le médiateur aide des personnes ou des groupes à rechercher une solution à un désaccord.",
+missions:"Faciliter le dialogue, écouter les parties et accompagner la recherche d'un accord.",
+etudes:"Formation en médiation, droit, psychologie ou relations sociales.",
+competences:"Neutralité, écoute, patience et communication.",
+debouches:"Associations, institutions et structures de médiation.",
+},
+{
+categorie:"petitions", nom:"Coordinateur de campagne citoyenne",
+definition:"Il organise une campagne destinée à mobiliser les citoyens autour d'une cause.",
+missions:"Définir les objectifs, préparer les actions, informer le public et suivre la mobilisation.",
+etudes:"Communication, sciences politiques, gestion de projet ou développement.",
+competences:"Organisation, stratégie, communication et travail collectif.",
+debouches:"Associations, ONG et initiatives citoyennes.",
+}
+];
+
+let categorieActive = "tous";
+
+function afficher() {
+    const recherche = document.getElementById("recherche").value.toLowerCase();
+    const resultat = document.getElementById("resultats");
+
+    const elements = donnees.filter(item => {
+        const correspondCategorie =
+            categorieActive === "tous" ||
+            item.categorie === categorieActive;
+
+        const correspondRecherche =
+            item.nom.toLowerCase().includes(recherche) ||
+            item.definition.toLowerCase().includes(recherche);
+
+        return correspondCategorie && correspondRecherche;
+    });
+
+    resultat.innerHTML = "";
+
+    if (elements.length === 0) {
+        resultat.innerHTML = "<p>Aucun métier trouvé.</p>";
+        return;
+    }
+
+    elements.forEach(item => {
+        const carte = document.createElement("article");
+        carte.className = "carte";
+        carte.innerHTML = `
+            <h3>${item.nom}</h3>
+            <p>${item.definition}</p>
+            <button onclick="ouvrirFiche('${item.nom.replace(/'/g, "\\'")}')">
+                Découvrir la fiche
+            </button>
+        `;
+        resultat.appendChild(carte);
+    });
+}
+
+function filtrer(categorie) {
+    categorieActive = categorie;
+    afficher();
+}
+
+function ouvrirFiche(nom) {
+    const item = donnees.find(element => element.nom === nom);
+
+    if (!item) return;
+
+    document.getElementById("contenuFiche").innerHTML = `
+        <h2>${item.nom}</h2>
+        <h3>Définition</h3>
+        <p>${item.definition}</p>
+        <h3>Missions principales</h3>
+        <p>${item.missions}</p>
+        <h3>Études et accès</h3>
+        <p>${item.etudes}</p>
+        <h3>Compétences</h3>
+        <p>${item.competences}</p>
+        <h3>Débouchés</h3>
+        <p>${item.debouches}</p>
+    `;
+
+    document.getElementById("fenetre").style.display = "flex";
+}
+
+function fermerFiche() {
+    document.getElementById("fenetre").style.display = "none";
+}
+
+afficher();
+</script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    afficher();
+
+    document.querySelectorAll(".categories button").forEach(function (bouton) {
+        bouton.addEventListener("click", function () {
+            const texte = bouton.textContent.toLowerCase();
+
+            const categories = {
+                "politique": "politique",
+                "droit": "droit",
+                "avocats": "avocats",
+                "débats": "debats",
+                "expression": "expression",
+                "pétitions": "petitions"
+            };
+
+            const categorie = Object.keys(categories).find(
+                nom => texte.includes(nom)
+            );
+
+            if (categorie) {
+                filtrer(categories[categorie]);
+            }
+        });
+    });
+});
+</script>
+
+<style>
+#enteteCategorie {
+    background: #102b50;
+    color: white;
+    padding: 25px 18px;
+    border-radius: 16px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#enteteCategorie h2 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+#enteteCategorie button {
+    background: white;
+    color: #102b50;
+    border: none;
+    padding: 13px 22px;
+    border-radius: 9px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.carte {
+    background: white;
+    border-radius: 15px;
+    padding: 24px;
+    margin: 18px 0;
+    border: 1px solid #dce3ed;
+    box-shadow: 0 3px 12px #00000012;
+}
+
+.carte h3 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.carte p {
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.carte button {
+    padding: 13px 20px;
+    font-size: 16px;
+    border-radius: 9px;
+    margin-top: 12px;
+}
+</style>
+
+<script>
+const nomsEspaces = {
+    politique: "Espace Politique",
+    droit: "Espace Droit",
+    avocats: "Espace Avocats",
+    debats: "Espace Débats",
+    expression: "Espace Expression",
+    petitions: "Espace Pétitions"
+};
+
+function filtrer(categorie) {
+    categorieActive = categorie;
+
+    const menu = document.querySelector(".categories");
+    const recherche = document.getElementById("recherche");
+
+    if (menu) menu.style.display = "none";
+    if (recherche) recherche.style.display = "none";
+
+    let entete = document.getElementById("enteteCategorie");
+
+    if (!entete) {
+        entete = document.createElement("div");
+        entete.id = "enteteCategorie";
+        document.getElementById("resultats").before(entete);
+    }
+
+    entete.innerHTML = `
+        <h2>${nomsEspaces[categorie] || "Tous les espaces"}</h2>
+        <p>Découvrez les professionnels, les métiers et les informations.</p>
+        <button onclick="retourEspaces()">← Retour aux espaces</button>
+    `;
+
+    afficher();
+}
+
+function retourEspaces() {
+    categorieActive = "tous";
+
+    const menu = document.querySelector(".categories");
+    const recherche = document.getElementById("recherche");
+    const entete = document.getElementById("enteteCategorie");
+
+    if (menu) menu.style.display = "flex";
+    if (recherche) {
+        recherche.style.display = "block";
+        recherche.value = "";
+    }
+
+    if (entete) entete.remove();
+
+    afficher();
+}
+</script>
+
+</body>
+</html>

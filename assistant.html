@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>HUMANIA IA</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:#071426;color:white;
+ font-family:Arial,sans-serif;
+ min-height:100vh;
+}
+header{
+ padding:22px;
+ background:linear-gradient(130deg,#102b50,#087d91);
+}
+header h1{font-size:25px}
+header p{font-size:13px;margin-top:7px;color:#d6edff}
+main{padding:18px}
+.intro{
+ padding:20px;background:#10243d;
+ border:1px solid #254768;border-radius:16px;
+ margin-bottom:18px;
+}
+.intro h2{color:#55d9d1;margin-bottom:10px}
+.intro p{font-size:14px;line-height:1.6;color:#c6d9eb}
+#chat{
+ height:45vh;min-height:250px;overflow-y:auto;
+ padding:14px;background:#0c1c30;
+ border:1px solid #254768;border-radius:15px;
+}
+.message{
+ padding:12px;margin-bottom:12px;
+ border-radius:12px;line-height:1.5;
+ font-size:14px;white-space:pre-wrap;
+}
+.bot{background:#163653;margin-right:20px}
+.user{background:#087d91;margin-left:20px}
+.label{font-size:11px;color:#65e0d9;margin-bottom:5px}
+form{display:flex;gap:8px;margin-top:12px}
+input{
+ flex:1;min-width:0;padding:14px;
+ border-radius:12px;border:1px solid #315475;
+ background:#10243d;color:white;font-size:14px;
+}
+button{
+ padding:13px;border:0;border-radius:12px;
+ background:#0799a5;color:white;font-weight:bold;
+}
+.examples{margin-top:18px}
+.examples button{
+ display:block;width:100%;text-align:left;
+ margin-top:9px;background:#10243d;
+ border:1px solid #254768;
+}
+.note{font-size:12px;color:#9fb6ca;margin-top:15px;line-height:1.5}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🧬 HUMANIA IA</h1>
+<p>Ton espace de découverte scientifique</p>
+</header>
+
+<main>
+
+<div class="intro">
+<h2>Bonjour !</h2>
+<p>Je suis l'assistant éducatif de HUMANIA. Pose-moi une question sur le corps humain, le cerveau, la génétique ou les sciences de la vie.</p>
+</div>
+
+<div id="chat">
+<div class="message bot">
+<div class="label">HUMANIA IA</div>
+Bienvenue ! Choisis une question ou écris ton propre sujet.
+</div>
+</div>
+
+<form id="form">
+<input id="question" placeholder="Écris ta question..." autocomplete="off" required>
+<button type="submit">Envoyer</button>
+</form>
+
+<div class="examples">
+<h3>Quelques questions</h3>
+<button type="button" onclick="ask('Comment fonctionne le cerveau ?')">🧠 Comment fonctionne le cerveau ?</button>
+<button type="button" onclick="ask('Quel est le rôle du cœur ?')">❤️ Quel est le rôle du cœur ?</button>
+<button type="button" onclick="ask('Qu’est-ce que l’ADN ?')">🧬 Qu'est-ce que l'ADN ?</button>
+<button type="button" onclick="ask('Comment fonctionne la digestion ?')">🍽️ Comment fonctionne la digestion ?</button>
+</div>
+
+<p class="note">
+Version de démonstration : cet assistant utilise des réponses pédagogiques intégrées. Une connexion à un véritable service d'IA sera nécessaire pour obtenir des réponses libres et actualisées.
+</p>
+
+</main>
+
+<script>
+const chat=document.getElementById("chat");
+
+const knowledge=[
+{words:["cerveau"],answer:"Le cerveau est un organe du système nerveux central. Il participe à la mémoire, aux émotions, au langage, aux mouvements et à la prise de décision."},
+{words:["coeur","cœur"],answer:"Le cœur est un muscle qui pompe le sang. Il permet de faire circuler l'oxygène et les nutriments dans tout le corps."},
+{words:["adn","génétique","genetique"],answer:"L'ADN est une molécule qui porte l'information génétique. Il contribue à déterminer de nombreuses caractéristiques biologiques."},
+{words:["digestion","estomac"],answer:"La digestion transforme les aliments en nutriments que l'organisme peut absorber et utiliser."},
+{words:["poumon","respiration"],answer:"Les poumons permettent les échanges gazeux : l'oxygène passe dans le sang et le dioxyde de carbone est éliminé."},
+{words:["cellule"],answer:"La cellule est l'unité fondamentale de la vie. Le corps humain est constitué de milliards de cellules spécialisées."},
+{words:["psychologie","émotion","emotion"],answer:"La psychologie étudie les comportements et les processus mentaux, notamment les émotions, la mémoire et l'apprentissage."}
+];
+
+function addMessage(text,type){
+const div=document.createElement("div");
+div.className="message "+type;
+const label=document.createElement("div");
+label.className="label";
+label.textContent=type==="user"?"TOI":"HUMANIA IA";
+const content=document.createElement("div");
+content.textContent=text;
+div.append(label,content);
+chat.appendChild(div);
+chat.scrollTop=chat.scrollHeight;
+}
+
+function answer(question){
+const q=question.toLowerCase();
+const result=knowledge.find(item=>item.words.some(w=>q.includes(w)));
+if(result)return result.answer;
+return "Je n'ai pas encore de réponse intégrée à cette question. Essaie un sujet sur le cerveau, le cœur, l'ADN, la digestion, les poumons, les cellules ou la psychologie.";
+}
+
+function ask(value){
+document.getElementById("question").value=value;
+sendQuestion(value);
+}
+
+function sendQuestion(value){
+if(!value.trim())return;
+addMessage(value,"user");
+document.getElementById("question").value="";
+setTimeout(()=>addMessage(answer(value),"bot"),350);
+}
+
+document.getElementById("form").addEventListener("submit",function(e){
+e.preventDefault();
+sendQuestion(document.getElementById("question").value);
+});
+</script>
+
+</body>
+</html>

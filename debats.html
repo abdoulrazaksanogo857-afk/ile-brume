@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOXIA - Débats</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f4f8;
+    color: #17243a;
+}
+header {
+    background: #102b50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+main { padding: 18px; }
+.carte {
+    background: white;
+    padding: 18px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+}
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+button {
+    background: #1769aa;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+}
+.debat {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>VOXIA</h1>
+<p>Débats citoyens</p>
+</header>
+
+<main>
+
+<div class="carte">
+<h2>Créer un débat</h2>
+
+<input id="titre" placeholder="Titre du débat">
+
+<textarea id="description" placeholder="Décrivez votre sujet"></textarea>
+
+<button onclick="publierDebat()">Publier le débat</button>
+</div>
+
+<h2>Débats publiés</h2>
+
+<div id="listeDebats"></div>
+
+</main>
+
+<script>
+function publierDebat() {
+    let titre = document.getElementById("titre").value.trim();
+    let description = document.getElementById("description").value.trim();
+
+    if (titre === "" || description === "") {
+        alert("Remplissez les deux champs.");
+        return;
+    }
+
+    let debat = document.createElement("div");
+    debat.className = "debat";
+
+    let h3 = document.createElement("h3");
+    h3.textContent = titre;
+
+    let p = document.createElement("p");
+    p.textContent = description;
+
+    debat.appendChild(h3);
+    debat.appendChild(p);
+
+    document.getElementById("listeDebats").prepend(debat);
+
+    document.getElementById("titre").value = "";
+    document.getElementById("description").value = "";
+}
+</script>
+
+</body>
+</html>

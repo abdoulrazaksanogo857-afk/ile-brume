@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>HUMANIA - Bibliothèque</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+ background:#071426;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+
+header{
+ padding:25px 18px;
+ background:linear-gradient(130deg,#102b50,#087d91);
+}
+
+header h1{font-size:27px}
+header p{font-size:14px;margin-top:8px;color:#d6edff}
+
+main{padding:18px}
+
+.intro,.section{
+ background:#10243d;
+ border:1px solid #254768;
+ border-radius:16px;
+ padding:18px;
+ margin-bottom:18px;
+}
+
+h2{color:#55d9d1;margin-bottom:13px}
+
+p{
+ color:#c6d9eb;
+ font-size:14px;
+ line-height:1.7;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+button{
+ background:#163653;
+ color:white;
+ border:1px solid #315475;
+ border-radius:13px;
+ padding:16px 10px;
+ font-size:14px;
+ cursor:pointer;
+}
+
+button:active{background:#087d91}
+
+#result{
+ background:#0c1c30;
+ border:1px solid #254768;
+ border-radius:14px;
+ padding:18px;
+ margin-top:15px;
+ min-height:100px;
+ font-size:14px;
+ line-height:1.8;
+ color:#d6edff;
+}
+
+footer{
+ text-align:center;
+ padding:22px;
+ color:#9fb6ca;
+ font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>📚 HUMANIA</h1>
+<p>Bibliothèque scientifique</p>
+</header>
+
+<main>
+
+<div class="intro">
+<h2>Bienvenue dans la bibliothèque</h2>
+<p>
+Découvre les connaissances scientifiques qui permettent
+de comprendre l'être humain, son organisme et le monde vivant.
+</p>
+</div>
+
+<div class="section">
+<h2>🧬 Biologie humaine</h2>
+<div class="grid">
+<button onclick="show('cellule')">🔬 La cellule</button>
+<button onclick="show('tissus')">🧫 Les tissus</button>
+<button onclick="show('organisme')">👤 L'organisme</button>
+<button onclick="show('homeostasie')">⚖️ Équilibre du corps</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🫀 Anatomie</h2>
+<div class="grid">
+<button onclick="show('coeur')">❤️ Le cœur</button>
+<button onclick="show('cerveau')">🧠 Le cerveau</button>
+<button onclick="show('poumons')">🫁 Les poumons</button>
+<button onclick="show('os')">🦴 Les os</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🦠 Microbiologie</h2>
+<div class="grid">
+<button onclick="show('bacteries')">🦠 Bactéries</button>
+<button onclick="show('virus')">🔬 Virus</button>
+<button onclick="show('champignons')">🍄 Champignons</button>
+<button onclick="show('immunite')">🛡️ Immunité</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🧪 Génétique</h2>
+<div class="grid">
+<button onclick="show('adn')">🧬 ADN</button>
+<button onclick="show('genes')">🔬 Les gènes</button>
+<button onclick="show('chromosomes')">🧫 Chromosomes</button>
+<button onclick="show('heredite')">👨‍👩‍👧 Hérédité</button>
+</div>
+</div>
+
+<div class="section">
+<h2>🔬 Sciences médicales</h2>
+<div class="grid">
+<button onclick="show('prevention')">🩺 Prévention</button>
+<button onclick="show('vaccins')">💉 Vaccination</button>
+<button onclick="show('sante')">❤️ Santé</button>
+<button onclick="show('recherche')">🔍 Recherche scientifique</button>
+</div>
+</div>
+
+<div class="section">
+<h2>📖 Lire une fiche scientifique</h2>
+<p>Sélectionne un sujet pour découvrir sa fiche explicative.</p>
+
+<div id="result">
+Bienvenue dans la bibliothèque HUMANIA. Choisis un sujet.
+</div>
+</div>
+
+</main>
+
+<footer>
+HUMANIA © 2026 — Le savoir au service de la découverte.
+</footer>
+
+<script>
+const data={
+
+cellule:"La cellule est la plus petite unité structurale et fonctionnelle de la vie. Elle possède différentes structures qui assurent son fonctionnement.",
+
+tissus:"Les tissus sont des ensembles de cellules organisées pour accomplir des fonctions particulières. On distingue notamment les tissus musculaires, nerveux et épithéliaux.",
+
+organisme:"Un organisme est un être vivant constitué d'organes et de systèmes qui fonctionnent ensemble.",
+
+homeostasie:"L'homéostasie est la capacité de l'organisme à maintenir relativement stables ses conditions internes, comme la température et la glycémie.",
+
+coeur:"Le cœur est un organe musculaire qui propulse le sang dans les vaisseaux sanguins.",
+
+cerveau:"Le cerveau est un organe du système nerveux central. Il intervient dans la mémoire, les émotions, les mouvements et la pensée.",
+
+poumons:"Les poumons assurent les échanges gazeux entre l'air et le sang : l'oxygène entre dans le sang et le dioxyde de carbone en sort.",
+
+os:"Les os forment le squelette. Ils soutiennent le corps, protègent des organes et participent aux mouvements.",
+
+bacteries:"Les bactéries sont des micro-organismes constitués d'une seule cellule. Certaines sont utiles, tandis que d'autres peuvent provoquer des maladies.",
+
+virus:"Les virus sont des agents infectieux qui ont besoin d'une cellule hôte pour se multiplier.",
+
+champignons:"Les champignons constituent un groupe d'organismes variés. Certains sont microscopiques et d'autres peuvent provoquer des infections.",
+
+immunite:"Le système immunitaire protège l'organisme contre de nombreux agents infectieux grâce à des cellules et des mécanismes de défense.",
+
+adn:"L'ADN est une molécule qui contient l'information génétique nécessaire au développement et au fonctionnement des êtres vivants.",
+
+genes:"Les gènes sont des portions d'ADN qui portent des informations permettant notamment la production de molécules fonctionnelles.",
+
+chromosomes:"Les chromosomes sont des structures constituées d'ADN associé à des protéines. Ils portent les gènes.",
+
+heredite:"L'hérédité correspond à la transmission de caractéristiques biologiques des parents à leurs descendants.",
+
+prevention:"La prévention regroupe les actions qui permettent de réduire les risques de maladies et de préserver la santé.",
+
+vaccins:"Les vaccins entraînent le système immunitaire à reconnaître certains agents infectieux afin de mieux se défendre.",
+
+sante:"La santé est un état de bien-être physique, mental et social. Elle ne se limite pas à l'absence de maladie.",
+
+recherche:"La recherche scientifique permet de produire et de vérifier des connaissances grâce à des observations, des expériences et des analyses."
+};
+
+function show(key){
+document.getElementById("result").textContent=data[key];
+}
+</script>
+
+</body>
+</html>
